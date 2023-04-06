@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
         if (_spawnManager == null)
         {
-            Debug.Log("The SpawnManager is NULL");
+            Debug.LogError("The SpawnManager is NULL");
         }
     }
 
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
 
         if (_lives < 1)
         {
-            _spawnManager.onPlayerDeath();
+            _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
     }
@@ -70,6 +70,6 @@ public class Player : MonoBehaviour
     void fireLaser()
     {
         _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
     }    
 }
