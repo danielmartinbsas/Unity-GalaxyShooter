@@ -32,15 +32,25 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldVisualizer;
 
+    [SerializeField]
+    private int _score;
+
+    private UI_Manager _uiManager;
+
     void Start()
     {
-        // Starting Position
         transform.position = new Vector3(0, -2.5f, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
 
         if (_spawnManager == null)
         {
             Debug.LogError("The SpawnManager is NULL");
+        }
+
+        if (_uiManager == null)
+        {
+            Debug.Log("The UI Manager is NULL");
         }
     }
 
@@ -84,6 +94,8 @@ public class Player : MonoBehaviour
         }
         
         _lives -= 1;
+        
+        _uiManager.UpdateLives(_lives);
 
         if (_lives < 1)
         {
@@ -136,5 +148,11 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shieldVisualizer.SetActive(true);
+    }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
     }
 }
